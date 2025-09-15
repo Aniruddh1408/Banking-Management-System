@@ -19,6 +19,49 @@ Java (Core, JDBC)
 MySQL (Database)
 JDBC Driver (MySQL Connector/J)
 
+Getting Started:
+
+Prerequisites:
+1. Java JDK 8 or above installed.
+2. MySQL server running locally.
+3. MySQL JDBC driver (Connector/J) added to your Java project classpath.
+
+Setup Instructions:
+Clone the Repository:
+
+git clone https://github.com/yourusername/banking-management-system.git
+cd banking-management-system
+
+Database Setup:
+
+1. Open MySQL.
+2. Run the SQL script below to create the required database and tables:
+
+CREATE DATABASE IF NOT EXISTS Banking_System;
+USE Banking_System;
+
+CREATE TABLE user(
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) PRIMARY KEY NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE accounts(
+    account_number BIGINT PRIMARY KEY NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    balance DECIMAL(10, 2) NOT NULL,
+    security_pin CHAR(4) NOT NULL
+);
+
+Configuration:
+
+Set environment variables DB_USER and DB_PASS for your MySQL username and password, or update the code in BankingApp.java to use your credentials directly.
+
+Run the Application.
+1. Compile all .java files (make sure your JDBC driver JAR is in the classpath).
+2. Run BankingApp.java as your main entry point.
+
 How To Use:
 1. Register a new user with full name, email, and password.
 2. Login with registered email and password.
