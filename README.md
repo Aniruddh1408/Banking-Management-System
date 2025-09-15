@@ -1,4 +1,4 @@
-Banking Management System
+Banking Management System:
 A simple command-line Java Banking Management System with MySQL database, allowing users to create bank accounts, login securely, and manage basic banking operations (debit, credit, transfer, balance check) via JDBC.
 
 Features:
