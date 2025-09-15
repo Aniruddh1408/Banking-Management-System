@@ -1,5 +1,5 @@
 package BankingManagementSystem;
-import java.math.BigDecimal;
+
 import java.sql.*;
 import java.util.Scanner;
 
@@ -23,13 +23,13 @@ public class AccountManager {
         try {
             connection.setAutoCommit(false);
             if(accountNumber != 0) {
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Accounts WHERE account_number = ? and security_pin = ? ");
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM accounts WHERE account_number = ? and security_pin = ? ");
                 preparedStatement.setLong(1, accountNumber);
                 preparedStatement.setString(2, securityPin);
                 ResultSet resultSet = preparedStatement.executeQuery();
 
                 if (resultSet.next()) {
-                    String creditQuery = "UPDATE Accounts SET balance = balance + ? WHERE account_number = ?";
+                    String creditQuery = "UPDATE accounts SET balance = balance + ? WHERE account_number = ?";
                     PreparedStatement preparedStatement1 = connection.prepareStatement(creditQuery);
                     preparedStatement1.setDouble(1, amount);
                     preparedStatement1.setLong(2, accountNumber);
@@ -64,7 +64,7 @@ public class AccountManager {
         try {
             connection.setAutoCommit(false);
             if(accountNumber!=0) {
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Accounts WHERE account_number = ? and security_pin = ? ");
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM accounts WHERE account_number = ? and security_pin = ? ");
                 preparedStatement.setLong(1, accountNumber);
                 preparedStatement.setString(2, securityPin);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -72,7 +72,7 @@ public class AccountManager {
                 if (resultSet.next()) {
                     double currentBalance = resultSet.getDouble("balance");
                     if (amount<=currentBalance){
-                        String debitQuery = "UPDATE Accounts SET balance = balance - ? WHERE account_number = ?";
+                        String debitQuery = "UPDATE accounts SET balance = balance - ? WHERE account_number = ?";
                         PreparedStatement preparedStatement1 = connection.prepareStatement(debitQuery);
                         preparedStatement1.setDouble(1, amount);
                         preparedStatement1.setLong(2, accountNumber);
@@ -112,7 +112,7 @@ public class AccountManager {
         try{
             connection.setAutoCommit(false);
             if(senderAccountNumber!=0 && receiverAccountNumber!=0){
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Accounts WHERE account_number = ? AND security_pin = ? ");
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM accounts WHERE account_number = ? AND security_pin = ? ");
                 preparedStatement.setLong(1, senderAccountNumber);
                 preparedStatement.setString(2, securityPin);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -122,8 +122,8 @@ public class AccountManager {
                     if (amount<=current_balance){
 
                         // Write debit and credit queries
-                        String debit_query = "UPDATE Accounts SET balance = balance - ? WHERE account_number = ?";
-                        String credit_query = "UPDATE Accounts SET balance = balance + ? WHERE account_number = ?";
+                        String debit_query = "UPDATE accounts SET balance = balance - ? WHERE account_number = ?";
+                        String credit_query = "UPDATE accounts SET balance = balance + ? WHERE account_number = ?";
 
                         // Debit and Credit prepared Statements
                         PreparedStatement creditPreparedStatement = connection.prepareStatement(credit_query);
@@ -167,7 +167,7 @@ public class AccountManager {
         System.out.print("Enter Security Pin: ");
         String securityPin = scanner.nextLine();
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT balance FROM Accounts WHERE account_number = ? AND security_pin = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT balance FROM accounts WHERE account_number = ? AND security_pin = ?");
             preparedStatement.setLong(1, accountNumber);
             preparedStatement.setString(2, securityPin);
             ResultSet resultSet = preparedStatement.executeQuery();
