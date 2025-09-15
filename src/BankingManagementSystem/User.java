@@ -6,6 +6,11 @@ public class User {
     private Connection connection;
     private Scanner sc;
 
+    public User(Connection connection, Scanner sc) {
+        this.connection = connection;
+        this.sc = sc;
+    }
+
     public void register() {
         sc.nextLine();
         System.out.println("Full name: ");
@@ -19,7 +24,7 @@ public class User {
             return;
         }
 
-        String registerQuery = "INSERT INTO user (fullName, email, password) VALUES (?, ?, ?)";
+        String registerQuery = "INSERT INTO user (full_name, email, password) VALUES (?, ?, ?)";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(registerQuery);
             preparedStatement.setString(1, fullName);
@@ -44,7 +49,7 @@ public class User {
         System.out.println("Enter password: ");
         String password = sc.nextLine();
 
-        String loginQuery = "SELECT FROM user WHERE email = ? AND password = ?";
+        String loginQuery = "SELECT * FROM user WHERE email = ? AND password = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(loginQuery);
             preparedStatement.setString(1, email);
