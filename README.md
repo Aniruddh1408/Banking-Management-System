@@ -27,10 +27,6 @@ Prerequisites:
 3. MySQL JDBC driver (Connector/J) added to your Java project classpath.
 
 Setup Instructions:
-Clone the Repository:
-
-git clone https://github.com/yourusername/banking-management-system.git
-cd banking-management-system
 
 Database Setup:
 
